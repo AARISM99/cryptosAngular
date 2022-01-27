@@ -1,0 +1,893 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>La phase du web scraping est la phase pour collecter les données</strong>
+          <!-- <small>Form</small> -->
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <form class="form-inline" (ngSubmit)="lancerScraping()" style="font-size: large;">
+                <div class="form-group mx-sm-2 mb-2">
+                  <label for="pagesNumber">algorithme</label>
+                  <select type="text" class="form-control mx-sm-3" id="algorithm" name="algorithmSelected" [(ngModel)]="algorithmSelected">
+                    <option *ngFor="let al of algorithms" value="{{al}}">{{al}}</option>
+                  </select>
+                </div>
+                <div class="form-group mx-sm-2 mb-2">
+                  <label for="pagesNumber">Nomre de pages</label>
+                  <input type="number" class="form-control mx-sm-3" id="pagesNumber" name="pagesNumber" [(ngModel)]="nbPageScraping" style="width: 80px;">
+                </div>
+                <button *ngIf="checkScraping" type="submit" class="btn btn-primary sm-2 mb-2" style="font-size: large;">Lancer</button>
+                <button *ngIf="!checkScraping" type="button" class="btn btn-secondary sm-2 mb-2" style="font-size: large;">Stop</button>
+                <div class="form-group mb-2">
+                  <span type="text" id="timeScraping" class="text-danger form-control-plaintext mx-sm-2" style="height: 35px;width: 100px;">
+                    {{timeScraping}}
+                  </span>
+                </div>
+              </form>
+            </div>
+          </div><!--/.row-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="row">
+    <div class="col-sm-6 col-lg-3">
+      <div class="card text-white bg-info">
+        <div class="card-body pb-0">
+          <button type="button" class="btn btn-transparent p-0 float-right">
+            <i class="icon-location-pin"></i>
+          </button>
+          <div class="text-value">9.823</div>
+          <div>Members online</div>
+        </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+          <canvas baseChart class="chart"
+          [datasets]="lineChart2Data"
+          [labels]="lineChart2Labels"
+          [options]="lineChart2Options"
+          [colors]="lineChart2Colours"
+          [legend]="lineChart2Legend"
+          [chartType]="lineChart2Type"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card text-white bg-primary">
+        <div class="card-body pb-0">
+          <div class="btn-group float-right" dropdown>
+            <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
+              <i class="icon-settings"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>
+          <div class="text-value">9.823</div>
+          <div>Members online</div>
+        </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+          <canvas baseChart class="chart"
+                  [datasets]="lineChart1Data"
+                  [labels]="lineChart1Labels"
+                  [options]="lineChart1Options"
+                  [colors]="lineChart1Colours"
+                  [legend]="lineChart1Legend"
+                  [chartType]="lineChart1Type"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card text-white bg-warning">
+        <div class="card-body pb-0">
+          <div class="btn-group float-right" dropdown>
+            <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
+              <i class="icon-settings"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>
+          <div class="text-value">9.823</div>
+          <div>Members online</div>
+        </div>
+        <div class="chart-wrapper mt-3" style="height:70px;">
+          <canvas baseChart class="chart"
+          [datasets]="lineChart3Data"
+          [labels]="lineChart3Labels"
+          [options]="lineChart3Options"
+          [colors]="lineChart3Colours"
+          [legend]="lineChart3Legend"
+          [chartType]="lineChart3Type"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card text-white bg-danger">
+        <div class="card-body pb-0">
+          <div class="btn-group float-right" dropdown>
+            <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
+              <i class="icon-settings"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>
+          <div class="text-value">9.823</div>
+          <div>Members online</div>
+        </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+          <canvas baseChart class="chart"
+          [datasets]="barChart1Data"
+          [labels]="barChart1Labels"
+          [options]="barChart1Options"
+          [colors]="barChart1Colours"
+          [legend]="barChart1Legend"
+          [chartType]="barChart1Type"></canvas>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-5">
+              <h4 class="card-title mb-0">Traffic</h4>
+              <div class="small text-muted">November 2017</div>
+            </div><!--/.col-->
+            <div class="col-sm-7 d-none d-md-block">
+              <button type="button" class="btn btn-primary float-right"><i class="icon-cloud-download"></i></button>
+              <div class="btn-group btn-group-toggle float-right mr-3" data-toggle="buttons">
+                <label class="btn btn-outline-secondary" [(ngModel)]="radioModel" btnRadio="Day" id="option1">Day</label>
+                <label class="btn btn-outline-secondary" [(ngModel)]="radioModel" btnRadio="Month" id="option2">Month</label>
+                <label class="btn btn-outline-secondary" [(ngModel)]="radioModel" btnRadio="Year" id="option3">Year</label>
+              </div>
+            </div><!--/.col-->
+          </div><!--/.row-->
+          <div class="chart-wrapper" style="height:300px;margin-top:40px;">
+            <canvas baseChart class="chart"
+            [datasets]="mainChartData"
+            [labels]="mainChartLabels"
+            [options]="mainChartOptions"
+            [colors]="mainChartColours"
+            [legend]="mainChartLegend"
+            [chartType]="mainChartType"></canvas>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="row text-center">
+            <div class="col-sm-12 col-md mb-sm-2 mb-0">
+              <div class="text-muted">Visits</div>
+              <strong>29.703 Users (40%)</strong>
+              <div class="progress progress-xs mt-2">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md mb-sm-2 mb-0">
+              <div class="text-muted">Unique</div>
+              <strong>24.093 Users (20%)</strong>
+              <div class="progress progress-xs mt-2">
+                <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md mb-sm-2 mb-0">
+              <div class="text-muted">Pageviews</div>
+              <strong>78.706 Views (60%)</strong>
+              <div class="progress progress-xs mt-2">
+                <div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md mb-sm-2 mb-0">
+              <div class="text-muted">New Users</div>
+              <strong>22.123 Users (80%)</strong>
+              <div class="progress progress-xs mt-2">
+                <div class="progress-bar bg-danger" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md mb-sm-2 mb-0">
+              <div class="text-muted">Bounce Rate</div>
+              <strong>40.15%</strong>
+              <div class="progress progress-xs mt-2">
+                <div class="progress-bar" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="row">
+    <div class="col-sm-6 col-lg-3">
+      <div class="brand-card">
+        <div class="brand-card-header bg-facebook">
+          <i class="fa fa-facebook"></i>
+          <div class="chart-wrapper">
+            <canvas baseChart class="chart"
+            [datasets]="brandBoxChartData1"
+            [labels]="brandBoxChartLabels"
+            [options]="brandBoxChartOptions"
+            [colors]="brandBoxChartColours"
+            [legend]="brandBoxChartLegend"
+            [chartType]="brandBoxChartType"></canvas>
+          </div>
+        </div>
+        <div class="brand-card-body">
+          <div>
+            <div class="text-value">89k</div>
+            <div class="text-uppercase text-muted small">friends</div>
+          </div>
+          <div>
+            <div class="text-value">459</div>
+            <div class="text-uppercase text-muted small">feeds</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="brand-card">
+        <div class="brand-card-header bg-twitter">
+          <i class="fa fa-twitter"></i>
+          <div class="chart-wrapper">
+            <canvas baseChart class="chart"
+            [datasets]="brandBoxChartData2"
+            [labels]="brandBoxChartLabels"
+            [options]="brandBoxChartOptions"
+            [colors]="brandBoxChartColours"
+            [legend]="brandBoxChartLegend"
+            [chartType]="brandBoxChartType"></canvas>
+          </div>
+        </div>
+        <div class="brand-card-body">
+          <div>
+            <div class="text-value">973k</div>
+            <div class="text-uppercase text-muted small">followers</div>
+          </div>
+          <div>
+            <div class="text-value">1.792</div>
+            <div class="text-uppercase text-muted small">tweets</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="brand-card">
+        <div class="brand-card-header bg-linkedin">
+          <i class="fa fa-linkedin"></i>
+          <div class="chart-wrapper">
+            <canvas baseChart class="chart"
+            [datasets]="brandBoxChartData3"
+            [labels]="brandBoxChartLabels"
+            [options]="brandBoxChartOptions"
+            [colors]="brandBoxChartColours"
+            [legend]="brandBoxChartLegend"
+            [chartType]="brandBoxChartType"></canvas>
+          </div>
+        </div>
+        <div class="brand-card-body">
+          <div>
+            <div class="text-value">500+</div>
+            <div class="text-uppercase text-muted small">contacts</div>
+          </div>
+          <div>
+            <div class="text-value">292</div>
+            <div class="text-uppercase text-muted small">feeds</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="brand-card">
+        <div class="brand-card-header bg-google-plus">
+          <i class="fa fa-google-plus"></i>
+          <div class="chart-wrapper">
+            <canvas baseChart class="chart"
+            [datasets]="brandBoxChartData4"
+            [labels]="brandBoxChartLabels"
+            [options]="brandBoxChartOptions"
+            [colors]="brandBoxChartColours"
+            [legend]="brandBoxChartLegend"
+            [chartType]="brandBoxChartType"></canvas>
+          </div>
+        </div>
+        <div class="brand-card-body">
+          <div>
+            <div class="text-value">894</div>
+            <div class="text-uppercase text-muted small">followers</div>
+          </div>
+          <div>
+            <div class="text-value">92</div>
+            <div class="text-uppercase text-muted small">circles</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          Traffic &amp; Sales
+          <select (change)="selectCrypto()" [(ngModel)]="cryptoSelectedId" style="float: right;">
+            <option *ngFor="let item of cryptos" value="{{item._id}}">{{item.name}}</option>
+          </select>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <img [src]="cryptoSelected.image" style="width: 80px;height: 80px;">
+              <hr>
+            </div>
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="callout callout-info">
+                    <small class="text-muted">Market Cap</small>
+                    <br>
+                    <strong class="h4">${{cryptoSelected?.marketCap}}</strong>
+                    <br>
+                    <small>&nbsp;</small>
+                  </div>
+                </div><!--/.col-->
+                <div class="col-sm-6">
+                  <div class="callout callout-danger">
+                    <small class="text-muted">Volume 24h</small>
+                    <br>
+                    <strong class="h4">${{cryptoSelected.volume_24h}}</strong>
+                    <br>
+                    <small>
+                      <strong [ngStyle]="{'color': ifGreaterthan(cryptoSelected.yesterday_volume,cryptoSelected.volume24hInMarketCap) ? 'red' : 'green'}">
+                        <span><i [ngClass]="{'fa fa-caret-down' : ifGreaterthan(cryptoSelected.yesterday_volume,cryptoSelected.volume24hInMarketCap), 'fa fa-caret-up' : !ifGreaterthan(cryptoSelected.yesterday_volume,cryptoSelected.volume24hInMarketCap)}"></i> </span>{{round_number(cryptoSelected.volume24hInMarketCap)}}%
+                      </strong>
+                    </small>
+                  </div>
+                </div><!--/.col-->
+              </div><!--/.row-->
+              <hr class="mt-0">
+              <div class="progress-group mb-4">
+                <div class="progress-group-prepend">
+                  <span class="progress-group-text">
+                    Today
+                  </span>
+                </div>
+                <div class="progress-group-bars">
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-info" [ngStyle]="{'width': round_number(toNumber(cryptoSelected.high_24h) / toNumber(cryptoSelected.price) * 100) + '%'}" role="progressbar" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-danger" [ngStyle]="{'width': round_number(toNumber(cryptoSelected.low_24h) / toNumber(cryptoSelected.price) * 100) + '%'}" role="progressbar" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="progress-group mb-4">
+                <div class="progress-group-prepend">
+                  <span class="progress-group-text">
+                    Yesterday
+                  </span>
+                </div>
+                <div class="progress-group-bars">
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-info" [ngStyle]="{'width': round_number(toNumber(cryptoSelected.yesterday_high) / toNumber(cryptoSelected.price) * 100) + '%'}" role="progressbar" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-danger" [ngStyle]="{'width': round_number(toNumber(cryptoSelected.yesterday_low) / toNumber(cryptoSelected.price) * 100) + '%'}" role="progressbar" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="progress-group mb-4">
+                <div class="progress-group-prepend">
+                  <span class="progress-group-text">
+                    Week
+                  </span>
+                </div>
+                <div class="progress-group-bars">
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-info" [ngStyle]="{'width': round_number(toNumber(cryptoSelected.high_7d) / toNumber(cryptoSelected.price) * 100) + '%'}" role="progressbar" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-danger" [ngStyle]="{'width': round_number(toNumber(cryptoSelected.low_7d) / toNumber(cryptoSelected.price) * 100) + '%'}" role="progressbar" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="progress-group mb-4">
+                <div class="progress-group-prepend">
+                  <span class="progress-group-text">
+                    Month
+                  </span>
+                </div>
+                <div class="progress-group-bars">
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-info" [ngStyle]="{'width': round_number(toNumber(cryptoSelected.high_30d) / toNumber(cryptoSelected.price) * 100) + '%'}" role="progressbar" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-danger" [ngStyle]="{'width': round_number(toNumber(cryptoSelected.low_30d) / toNumber(cryptoSelected.price) * 100) + '%'}" role="progressbar" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="progress-group mb-4">
+                <div class="progress-group-prepend">
+                  <span class="progress-group-text">
+                    Three months
+                  </span>
+                </div>
+                <div class="progress-group-bars">
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-info" [ngStyle]="{'width': round_number(toNumber(cryptoSelected.high_90d) / toNumber(cryptoSelected.price) * 100) + '%'}" role="progressbar" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-danger" [ngStyle]="{'width': round_number(toNumber(cryptoSelected.low_90d) / toNumber(cryptoSelected.price) * 100) + '%'}" role="progressbar" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="progress-group mb-4">
+                <div class="progress-group-prepend">
+                  <span class="progress-group-text">
+                    52 weeks
+                  </span>
+                </div>
+                <div class="progress-group-bars">
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-info" [ngStyle]="{'width': round_number(toNumber(cryptoSelected.high_52w) / toNumber(cryptoSelected.price) * 100) + '%'}" role="progressbar" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-danger" [ngStyle]="{'width': round_number(toNumber(cryptoSelected.low_52w) / toNumber(cryptoSelected.price) * 100) + '%'}" role="progressbar" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="progress-group mb-4">
+                <div class="progress-group-prepend">
+                  <span class="progress-group-text">
+                    Historique
+                  </span>
+                </div>
+                <div class="progress-group-bars">
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-info" [ngStyle]="{'width': round_number(toNumber(cryptoSelected.high_all_time) / toNumber(cryptoSelected.price) * 100) + '%'}" role="progressbar" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-danger" [ngStyle]="{'width': round_number(toNumber(cryptoSelected.low_all_time) / toNumber(cryptoSelected.price) * 100) + '%'}" role="progressbar" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div><!--/.col-->
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="callout callout-warning">
+                    <small class="text-muted">Circulating Supply</small>
+                    <br>
+                    <strong class="h4">{{toInteger(cryptoSelected.circulatingSupply)}}</strong>
+                    <br>
+                    <small>
+                      max supply : {{toInteger(cryptoSelected.maxSupplyValue)}}
+                    </small>
+                  </div>
+                </div><!--/.col-->
+                <div class="col-sm-6">
+                  <div class="callout callout-success">
+                    <small class="text-muted">Price</small>
+                    <br>
+                    <strong class="h4">${{cryptoSelected.price}}</strong>
+                    <br>
+                    <small>
+                      <strong [ngStyle]="{'color': ifGreaterthan(cryptoSelected.yesterday_change,cryptoSelected.price_change_24h) ? 'red' : 'green'}">
+                        <span><i [ngClass]="{'fa fa-caret-down' : ifGreaterthan(cryptoSelected.yesterday_change,cryptoSelected.price_change_24h), 'fa fa-caret-up' : !ifGreaterthan(cryptoSelected.yesterday_volume,cryptoSelected.volume24hInMarketCap)}"></i> </span>{{round_number(cryptoSelected.price_change_percentage)}}%
+                      </strong>
+                    </small>
+                  </div>
+                </div><!--/.col-->
+              </div><!--/.row-->
+              <hr class="mt-0">
+              <div class="progress-group">
+                <div class="progress-group-header align-items-end">
+                  <div>Market rank</div>
+                  <div class="ml-auto font-weight-bold mr-2">#{{toInteger(cryptoSelected.rank)}}</div>
+                </div>
+              </div>
+              <div class="progress-group">
+                <div class="progress-group-header align-items-end">
+                  <div>Market dominance</div>
+                  <div class="ml-auto font-weight-bold mr-2">{{cryptoSelected.dominance}}</div>
+                </div>
+                <div class="progress-group-bars">
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-success" [ngStyle]="{'width': cryptoSelected.dominance + '%'}" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="progress-group">
+                <div class="progress-group-header">
+                  <div>Circulating Supply</div>
+                  <div class="ml-auto font-weight-bold">{{round_number(toNumber(cryptoSelected.totalSupplyValue) / toNumber(cryptoSelected.maxSupplyValue) * 100)}}%</div>
+                </div>
+                <div class="progress-group-bars">
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-warning" [ngStyle]="{'width': round_number(toNumber(cryptoSelected.totalSupplyValue) / toNumber(cryptoSelected.maxSupplyValue) * 100) + '%'}" role="progressbar" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="progress-group mb-5">
+                <div class="progress-group-header">
+                  <div>Total Supply</div>
+                  <div class="ml-auto font-weight-bold">{{round_number(toNumber(cryptoSelected.totalSupplyValue) / toNumber(cryptoSelected.maxSupplyValue) * 100)}}%</div>
+                </div>
+                <div class="progress-group-bars">
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-warning" [ngStyle]="{'width': round_number(toNumber(cryptoSelected.circulatingSupply) / toNumber(cryptoSelected.maxSupplyValue) * 100) + '%'}" role="progressbar" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="progress-group">
+                <div class="progress-group-header align-items-end">
+                  <div>Market cap</div>
+                  <div class="ml-auto font-weight-bold mr-2">${{cryptoSelected.marketCap}}</div>
+                </div>
+              </div>
+              <div class="progress-group">
+                <div class="progress-group-header align-items-end">
+                  <div>Fully Diluted Market Cap</div>
+                  <div class="ml-auto font-weight-bold mr-2">${{cryptoSelected.fullyDilutedMarketCap}}</div>
+                </div>
+              </div>
+            </div><!--/.col-->
+          </div><!--/.row-->
+          <!-- <br>
+          <table class="table table-responsive-sm table-hover table-outline mb-0">
+            <thead class="thead-light">
+              <tr>
+                <th class="text-center"><i class="icon-people"></i></th>
+                <th>User</th>
+                <th class="text-center">Country</th>
+                <th>Usage</th>
+                <th class="text-center">Payment Method</th>
+                <th>Activity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center">
+                  <div class="avatar">
+                    <img src="assets/img/avatars/1.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    <span class="avatar-status badge-success"></span>
+                  </div>
+                </td>
+                <td>
+                  <div>Yiorgos Avraamu</div>
+                  <div class="small text-muted">
+                    <span>New</span> | Registered: Jan 1, 2015
+                  </div>
+                </td>
+                <td class="text-center">
+                  <i class="flag-icon flag-icon-us h4 mb-0" title="us" id="us"></i>
+                </td>
+                <td>
+                  <div class="clearfix">
+                    <div class="float-left">
+                      <strong>50%</strong>
+                    </div>
+                    <div class="float-right">
+                      <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
+                    </div>
+                  </div>
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <i class="fa fa-cc-mastercard" style="font-size:24px"></i>
+                </td>
+                <td>
+                  <div class="small text-muted">Last login</div>
+                  <strong>10 sec ago</strong>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center">
+                  <div class="avatar">
+                    <img src="assets/img/avatars/2.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    <span class="avatar-status badge-danger"></span>
+                  </div>
+                </td>
+                <td>
+                  <div>Avram Tarasios</div>
+                  <div class="small text-muted">
+
+                    <span>Recurring</span> | Registered: Jan 1, 2015
+                  </div>
+                </td>
+                <td class="text-center">
+                  <i class="flag-icon flag-icon-br h4 mb-0" title="br" id="br"></i>
+                </td>
+                <td>
+                  <div class="clearfix">
+                    <div class="float-left">
+                      <strong>10%</strong>
+                    </div>
+                    <div class="float-right">
+                      <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
+                    </div>
+                  </div>
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <i class="fa fa-cc-visa" style="font-size:24px"></i>
+                </td>
+                <td>
+                  <div class="small text-muted">Last login</div>
+                  <strong>5 minutes ago</strong>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center">
+                  <div class="avatar">
+                    <img src="assets/img/avatars/3.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    <span class="avatar-status badge-warning"></span>
+                  </div>
+                </td>
+                <td>
+                  <div>Quintin Ed</div>
+                  <div class="small text-muted">
+                    <span>New</span> | Registered: Jan 1, 2015
+                  </div>
+                </td>
+                <td class="text-center">
+                  <i class="flag-icon flag-icon-in h4 mb-0" title="in" id="in"></i>
+                </td>
+                <td>
+                  <div class="clearfix">
+                    <div class="float-left">
+                      <strong>74%</strong>
+                    </div>
+                    <div class="float-right">
+                      <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
+                    </div>
+                  </div>
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 74%" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <i class="fa fa-cc-stripe" style="font-size:24px"></i>
+                </td>
+                <td>
+                  <div class="small text-muted">Last login</div>
+                  <strong>1 hour ago</strong>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center">
+                  <div class="avatar">
+                    <img src="assets/img/avatars/4.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    <span class="avatar-status badge-secondary"></span>
+                  </div>
+                </td>
+                <td>
+                  <div>Enéas Kwadwo</div>
+                  <div class="small text-muted">
+                    <span>New</span> | Registered: Jan 1, 2015
+                  </div>
+                </td>
+                <td class="text-center">
+                  <i class="flag-icon flag-icon-fr h4 mb-0" title="fr" id="fr"></i>
+                </td>
+                <td>
+                  <div class="clearfix">
+                    <div class="float-left">
+                      <strong>98%</strong>
+                    </div>
+                    <div class="float-right">
+                      <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
+                    </div>
+                  </div>
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 98%" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <i class="fa fa-paypal" style="font-size:24px"></i>
+                </td>
+                <td>
+                  <div class="small text-muted">Last login</div>
+                  <strong>Last month</strong>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center">
+                  <div class="avatar">
+                    <img src="assets/img/avatars/5.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    <span class="avatar-status badge-success"></span>
+                  </div>
+                </td>
+                <td>
+                  <div>Agapetus Tadeáš</div>
+                  <div class="small text-muted">
+                    <span>New</span> | Registered: Jan 1, 2015
+                  </div>
+                </td>
+                <td class="text-center">
+                  <i class="flag-icon flag-icon-es h4 mb-0" title="es" id="es"></i>
+                </td>
+                <td>
+                  <div class="clearfix">
+                    <div class="float-left">
+                      <strong>22%</strong>
+                    </div>
+                    <div class="float-right">
+                      <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
+                    </div>
+                  </div>
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 22%" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <i class="fa fa-google-wallet" style="font-size:24px"></i>
+                </td>
+                <td>
+                  <div class="small text-muted">Last login</div>
+                  <strong>Last week</strong>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center">
+                  <div class="avatar">
+                    <img src="assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    <span class="avatar-status badge-danger"></span>
+                  </div>
+                </td>
+                <td>
+                  <div>Friderik Dávid</div>
+                  <div class="small text-muted">
+                    <span>New</span> | Registered: Jan 1, 2015
+                  </div>
+                </td>
+                <td class="text-center">
+                  <i class="flag-icon flag-icon-pl h4 mb-0" title="pl" id="pl"></i>
+                </td>
+                <td>
+                  <div class="clearfix">
+                    <div class="float-left">
+                      <strong>43%</strong>
+                    </div>
+                    <div class="float-right">
+                      <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
+                    </div>
+                  </div>
+                  <div class="progress progress-xs">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 43%" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <i class="fa fa-cc-amex" style="font-size:24px"></i>
+                </td>
+                <td>
+                  <div class="small text-muted">Last login</div>
+                  <strong>Yesterday</strong>
+                </td>
+              </tr>
+            </tbody>
+          </table> -->
+          <br>
+          <table class="table table-responsive-sm table-hover table-outline mb-0">
+            <thead class="thead-light">
+              <tr>
+                <th class="text-right">#</th>
+                <th>Logo</th>
+                <th>Name</th>
+                <th class="text-right">Price</th>
+                <th class="text-right">24h %</th>
+                <th class="text-right">Market cap</th>
+                <th class="text-right">Volume (24h)</th>
+                <th class="text-left">Circulating Supply</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of cryptos.slice((currentPage-1) * pageSize,currentPage * pageSize)">
+                <td class="text-right">{{item.rank}}</td>
+                <td>
+                  <div class="avatar">
+                    <img src="{{item.image}}" class="img-avatar" alt="{{item.name}}">
+                    <!-- <span class="avatar-status badge-success"></span> -->
+                  </div>
+                </td>
+                <td>
+                  <div>{{item.name}}</div>
+                  <div class="small text-muted">
+                    <span>{{item.company}}</span>
+                  </div>
+                </td>
+                <td class="text-right">${{round_number(item.price)}}</td>
+                <td class="text-right">{{round_number(item.price_change_percentage)}}%</td>
+                <td class="text-right">${{round_number(item.marketCap)}}</td>
+
+                <td class="text-right">
+                  <div>${{item.volume_24h}}</div>
+                  <div class="small text-muted">
+                    <span>{{round_number(item.volume24hInMarketCap)}} {{item.company}}</span>
+                  </div>
+                </td>
+
+                <td class="text-left">
+                  <div class="mb-1">{{item.circulatingSupply}} {{item.company}}</div>
+                  <div class="small text-muted">
+                    <div style="width: 150px;height: 6px;border-radius: 3px;background: rgb(194, 200, 212);">
+                      <div [ngStyle]="{'width':calculateCirculatingSupplyPrecentage(item.circulatingSupply,item.maxSupplyValue,150)+'px'}" style="height: 6px;border-radius: 3px;background: rgb(255 182 71);top: 0px;left: 0px;"></div>
+                    </div>
+                  </div>
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+          <div class="row" style="justify-content: center;">
+            <div class="mt-4 text-center">
+              <!-- <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination> -->
+              <!-- <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" class="pagination-sm"
+              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+              [boundaryLinks]="true" [rotate]="false" (numPages)="pageSize = $event"></pagination> -->
+              <pagination [directionLinks]="false" [boundaryLinks]="true" [totalItems]="totalItems"
+                [(ngModel)]="currentPage"></pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!--/.col-->
+  </div><!--/.row-->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>The high and low values of top {{topRankCryptos.length}} currencies</strong>
+          <div class="card-header-actions">
+            <div class="btn-group btn-group-toggle float-right mr-3" data-toggle="buttons" style="background-color: white;">
+              <label *ngFor="let option of timeOptions" (click)="chooseTimeOption()" class="btn btn-outline-secondary" [(ngModel)]="timeOptionCurrent" btnRadio={{option}} id="option1">{{option}}</label>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="row">
+          <div class="col-sm-5">
+            <h4 class="card-title mb-0">Traffic</h4>
+            <div class="small text-muted">November 2017</div>
+          </div>
+          <div class="col-sm-7 d-none d-md-block">
+            <button type="button" class="btn btn-primary float-right"><i class="icon-cloud-download"></i></button>
+            <div class="btn-group btn-group-toggle float-right mr-3" data-toggle="buttons">
+              <label class="btn btn-outline-secondary" [(ngModel)]="radioModel" btnRadio="Day" id="option1">Day</label>
+              <label class="btn btn-outline-secondary" [(ngModel)]="radioModel" btnRadio="Month" id="option2">Month</label>
+              <label class="btn btn-outline-secondary" [(ngModel)]="radioModel" btnRadio="Year" id="option3">Year</label>
+            </div>
+          </div>
+        </div> -->
+        <div class="card-body">
+          <div class="chart-wrapper">
+            <canvas baseChart class="chart"
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)">
+            </canvas>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
